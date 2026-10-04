@@ -4,7 +4,7 @@ A high-performance, cross-platform desktop application for converting video, aud
 
 Built with Tauri, React, and Rust, this project acts as a secure, unified graphical interface for three major open-source processing engines: **FFmpeg**, **ImageMagick**, and **Pandoc**. 
 
-## 🚀 Features
+##  Features
 * **Universal Format Support:** Convert between dozens of formats including `.mp4`, `.mp3`, `.wav`, `.heic`, `.raw`, `.pdf`, `.docx`, and more.
 * **100% Local Processing:** No cloud servers, no file size limits, and no privacy risks. All files are processed locally on your hardware.
 * **Smart Batching:** Drag and drop an entire folder of mixed file types. The backend automatically filters incompatible formats and routes each file to the correct engine.
@@ -13,7 +13,7 @@ Built with Tauri, React, and Rust, this project acts as a secure, unified graphi
 
 ---
 
-## 🧠 Architecture & Deep Dive
+##  Architecture & Deep Dive
 
 Under the hood, Universal Converter isn't actually converting the files itself. It operates as a **Multi-Engine Router** and an **IPC (Inter-Process Communication) Bridge**. 
 
@@ -36,7 +36,7 @@ Instead of relying on standard HTML5 Drag-and-Drop (which intentionally obscures
 
 ---
 
-## 📥 Installation (End Users)
+##  Installation (End Users)
 
 If you just want to use the app, you do not need to compile it from source.
 1. Go to the [Releases](../../releases) page.
@@ -59,3 +59,36 @@ If you want to clone this repository and build it locally, you will need to manu
 git clone [https://github.com/YOUR_USERNAME/universal-converter.git](https://github.com/YOUR_USERNAME/universal-converter.git)
 cd universal-converter
 npm install
+```
+
+### 2. Add the Engine Sidecars
+Tauri needs the portable executables for FFmpeg, ImageMagick, and Pandoc placed inside the `src-tauri/bin/` folder. 
+
+1. Create a folder named `bin` inside `src-tauri`.
+2. Download the portable/standalone binaries for your specific operating system:
+   * [FFmpeg](https://ffmpeg.org/download.html)
+   * [ImageMagick](https://imagemagick.org/script/download.php)
+   * [Pandoc](https://pandoc.org/installing.html)
+3. Rename the executables by appending your OS's "Target Triple". 
+   * *Example for Windows x64:*
+     * `ffmpeg-x86_64-pc-windows-msvc.exe`
+     * `magick-x86_64-pc-windows-msvc.exe`
+     * `pandoc-x86_64-pc-windows-msvc.exe`
+   * *Example for Apple Silicon Mac:*
+     * `ffmpeg-aarch64-apple-darwin`
+     * `magick-aarch64-apple-darwin`
+     * `pandoc-aarch64-apple-darwin`
+
+### 3. Run the Development Server
+Once the binaries are in place, start the Tauri dev server:
+
+```bash
+npm run tauri dev
+```
+### 4. Build for Production
+To generate your own .exe, .msi, .dmg, or .AppImage installers:
+```bash
+npm run tauri build
+```
+## License
+This project is licensed under the MIT License.
